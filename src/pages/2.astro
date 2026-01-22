@@ -1,0 +1,517 @@
+---
+import '../styles/global.css';
+import blueprintImg from '../assets/blueprint.png';
+
+const name = "Thomas Yates";
+const tagline = "Game Developer & Junior Software Engineer";
+const email = "tomyates2008@gmail.com";
+const github = "Virtual065";
+
+const whatIDo = [
+  { title: 'Game Development', description: 'Building interactive experiences with Unity and Unreal Engine', icon: '🎮' },
+  { title: 'Software Engineering', description: 'Developing robust applications and tools', icon: '⚙️' },
+  { title: 'Programming', description: 'Writing clean, efficient code in multiple languages', icon: '💻' },
+  { title: '3D Art & Design', description: 'Creating models, textures, and environments', icon: '🎨' },
+  { title: 'Writing', description: 'Crafting narratives and documentation', icon: '✍️' },
+  { title: 'Level Design', description: 'Designing engaging gameplay spaces', icon: '🗺️' },
+];
+
+const history = [
+  { year: '2024', title: 'Joined Access Creative College', description: 'Started my journey in game development education', icon: '🎓' },
+  { year: 'July 2025', title: 'First Game Jam', description: 'Created Rot&Root with working multiplayer', link: 'https://vt065.itch.io/rotandroot', icon: '🏆' },
+  { year: 'Nov 2025', title: 'Joined BuiltByUp', description: 'Became a Junior Software Engineer', link: 'https://builtbyup.com/', icon: '💼' },
+];
+
+const languages = [
+  { name: 'C#', level: 'primary' },
+  { name: 'Python', level: 'primary' },
+  { name: 'C++', level: 'secondary' },
+  { name: 'GDScript', level: 'secondary' },
+  { name: 'JavaScript', level: 'secondary' },
+  { name: 'TypeScript', level: 'secondary' },
+  { name: 'PHP', level: 'secondary' },
+  { name: 'Vue', level: 'secondary' },
+  { name: 'HTML/CSS', level: 'secondary' },
+  { name: 'SQL', level: 'learning' },
+];
+
+const tools = [
+  { name: 'Unity', category: 'engine', description: 'Primary game engine' },
+  { name: 'Unreal Engine', category: 'engine', description: 'AAA development' },
+  { name: 'CryEngine', category: 'engine', description: 'High-fidelity engine' },
+  { name: 'VS Code', category: 'editor', description: 'Code editor' },
+  { name: 'JetBrains Rider', category: 'editor', description: 'C# IDE' },
+  { name: 'JetBrains PyCharm', category: 'editor', description: 'Python IDE' },
+  { name: 'Blender', category: '3d', description: '3D modeling' },
+  { name: 'Substance Painter', category: '3d', description: 'PBR texturing' },
+  { name: 'Gaea', category: '3d', description: 'Terrain generation' },
+];
+
+const categories = [
+  { key: 'engine', label: 'Game Engines', icon: '🎮' },
+  { key: 'editor', label: 'Development', icon: '💻' },
+  { key: '3d', label: '3D & Art', icon: '🎨' },
+];
+
+const codeSnippets = [
+  {
+    language: 'C#',
+    label: 'Unity',
+    type: 'code',
+    code: `public class PlayerController : MonoBehaviour
+{
+    [SerializeField] private float moveSpeed = 5f;
+    private Rigidbody rb;
+
+    void Start() => rb = GetComponent<Rigidbody>();
+
+    void FixedUpdate()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        Vector3 move = new Vector3(h, 0, v);
+        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+    }
+}`
+  },
+  {
+    language: 'Vue',
+    label: 'Vue 3',
+    type: 'code',
+    code: `<template>
+  <div class="project-grid">
+    <ProjectCard
+      v-for="project in filteredProjects"
+      :key="project.id"
+      :project="project"
+      @click="openProject(project)"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import type { Project } from '@/types'
+
+const projects = ref<Project[]>([])
+const filter = ref('all')
+
+const filteredProjects = computed(() =>
+  filter.value === 'all'
+    ? projects.value
+    : projects.value.filter(p => p.category === filter.value)
+)
+</script>`
+  },
+  {
+    language: 'C++',
+    label: 'Unreal Engine',
+    type: 'code',
+    code: `void AWeaponBase::Fire()
+{
+    if (!CanFire()) return;
+
+    FHitResult Hit;
+    FVector Start = MuzzleComponent->GetComponentLocation();
+    FVector End = Start + (GetActorForwardVector() * Range);
+
+    FCollisionQueryParams Params;
+    Params.AddIgnoredActor(this);
+    Params.AddIgnoredActor(GetOwner());
+
+    if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, Params))
+    {
+        if (AActor* HitActor = Hit.GetActor())
+        {
+            UGameplayStatics::ApplyDamage(HitActor, Damage, GetInstigatorController(), this, DamageType);
+        }
+    }
+    CurrentAmmo--;
+}`
+  },
+  {
+    language: 'Blueprint',
+    label: 'Unreal Visual',
+    type: 'image'
+  }
+];
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{name} | {tagline}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Hero with particles -->
+  <section class="min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden">
+    <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+    <div class="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full pointer-events-none z-[1]"></div>
+    <div class="relative z-10 text-center w-full max-w-4xl mx-auto">
+      <p class="hero-tagline text-[var(--accent-light)] font-mono text-xs sm:text-sm tracking-widest uppercase mb-4">{tagline}</p>
+      <h1 class="hero-name name-glow text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">{name}</h1>
+      <p class="hero-subtitle text-[var(--text-secondary)] text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-16">Creating immersive experiences through code and creativity</p>
+      <div class="hero-scroll w-6 h-10 border-2 border-[var(--text-muted)] rounded-full flex justify-center mx-auto">
+        <div class="scroll-dot w-1.5 h-1.5 bg-[var(--accent-light)] rounded-full mt-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div>
+
+    <!-- What I Do -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]">
+      <div class="w-full max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">What I <span class="text-[var(--accent-light)]">Do</span></h2>
+          <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">Combining technical skills with creative vision</p>
+        </div>
+        <div class="stagger-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {whatIDo.map((item) => (
+            <div class="stagger-item group p-6 rounded-xl bg-[var(--bg-secondary)]/70 backdrop-blur-sm border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300">
+              <span class="text-3xl mb-4 block">{item.icon}</span>
+              <h3 class="text-lg font-semibold mb-2 group-hover:text-[var(--accent-light)] transition-colors">{item.title}</h3>
+              <p class="text-sm text-[var(--text-muted)]">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-primary)]">
+      <div class="w-full max-w-3xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">My <span class="text-[var(--accent-light)]">Journey</span></h2>
+          <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">Key milestones in my development career</p>
+        </div>
+        <div class="relative">
+          <!-- Timeline line -->
+          <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[var(--accent)] md:-translate-x-px"></div>
+
+          <div class="space-y-12">
+            {history.map((item, i) => (
+              <div class={`reveal relative flex items-center gap-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                <!-- Timeline dot -->
+                <div class="absolute left-8 md:left-1/2 w-4 h-4 bg-[var(--accent)] rounded-full -translate-x-1/2 border-4 border-[var(--bg-primary)] z-10"></div>
+
+                <!-- Content card -->
+                <div class={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 ${i % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'}`}>
+                  <div class={`flex items-center gap-3 mb-3 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                    <span class="text-2xl">{item.icon}</span>
+                    <span class="text-[var(--accent-light)] font-mono text-sm">{item.year}</span>
+                  </div>
+                  {item.link ? (
+                    <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-xl font-semibold mb-2 block hover:text-[var(--accent-light)] transition-colors">
+                      {item.title} ↗
+                    </a>
+                  ) : (
+                    <h3 class="text-xl font-semibold mb-2">{item.title}</h3>
+                  )}
+                  <p class="text-[var(--text-muted)] text-sm">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Languages -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]">
+      <div class="w-full max-w-3xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Languages I <span class="text-[var(--accent-light)]">Know</span></h2>
+          <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">The programming languages in my toolkit</p>
+        </div>
+        <div class="stagger-group flex flex-wrap justify-center gap-4 mb-12">
+          {languages.map((lang) => (
+            <div class={`stagger-item px-6 py-3 rounded-full font-mono text-sm border-2 transition-all duration-300 cursor-default
+              ${lang.level === 'primary'
+                ? 'bg-[var(--accent)] border-[var(--accent)] text-white'
+                : lang.level === 'secondary'
+                ? 'bg-transparent border-[var(--accent-light)] text-[var(--accent-light)]'
+                : 'bg-transparent border-[var(--text-muted)] text-[var(--text-muted)]'
+              }`}>
+              {lang.name}
+            </div>
+          ))}
+        </div>
+        <div class="reveal flex flex-wrap justify-center gap-8 text-sm">
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded-full bg-[var(--accent)]"></div>
+            <span class="text-[var(--text-secondary)]">Primary</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded-full border-2 border-[var(--accent-light)]"></div>
+            <span class="text-[var(--text-secondary)]">Proficient</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded-full border-2 border-[var(--text-muted)]"></div>
+            <span class="text-[var(--text-secondary)]">Learning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Showcase -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-primary)]">
+      <div class="w-full max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Code <span class="text-[var(--accent-light)]">Samples</span></h2>
+          <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">A glimpse into how I write code</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {codeSnippets.map((snippet) => (
+            <div class="reveal group">
+              <div class="flex items-center justify-between px-4 py-3 bg-[var(--bg-tertiary)]/80 backdrop-blur-sm rounded-t-xl border border-b-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors">
+                <div class="flex items-center gap-3">
+                  <div class="flex gap-1.5">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  </div>
+                  <span class="text-[var(--text-muted)] text-sm font-mono">{snippet.label}</span>
+                </div>
+                <span class="text-[var(--accent-light)] text-sm font-mono">{snippet.language}</span>
+              </div>
+              {snippet.type === 'code' ? (
+                <pre class="p-4 bg-[#0d0d12]/90 backdrop-blur-sm rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-auto h-[450px]"><code class="font-mono text-sm leading-relaxed text-[var(--text-secondary)]">{snippet.code}</code></pre>
+              ) : (
+                <div class="bg-[#0d0d12]/90 backdrop-blur-sm rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-hidden h-[450px]">
+                  <img src={blueprintImg.src} alt="Unreal Blueprint" class="w-full h-full object-cover object-center" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Software -->
+    <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]">
+      <div class="w-full max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Software <span class="text-[var(--accent-light)]">Arsenal</span></h2>
+          <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">The tools I use to bring ideas to life</p>
+        </div>
+        <div class="space-y-12">
+          {categories.map((cat) => (
+            <div class="reveal">
+              <div class="flex items-center gap-3 mb-6">
+                <span class="text-2xl">{cat.icon}</span>
+                <h3 class="text-xl font-semibold">{cat.label}</h3>
+                <div class="flex-1 h-px bg-gradient-to-r from-[var(--accent)] to-transparent"></div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {tools.filter(t => t.category === cat.key).map((tool) => (
+                  <div class="group p-6 rounded-xl bg-[var(--bg-secondary)]/70 backdrop-blur-sm border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 text-center">
+                    <h4 class="font-semibold mb-2 group-hover:text-[var(--accent-light)] transition-colors">{tool.name}</h4>
+                    <p class="text-sm text-[var(--text-muted)]">{tool.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="px-6 py-24 bg-[var(--bg-primary)]">
+      <div class="w-full max-w-2xl mx-auto text-center">
+        <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Let's <span class="text-[var(--accent-light)]">Connect</span></h2>
+        <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto mb-12">Interested in working together or just want to chat? Feel free to reach out.</p>
+        <div class="stagger-group flex flex-col sm:flex-row justify-center gap-4">
+          <a href={`mailto:${email}`} class="stagger-item inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full border-2 border-[var(--accent)] text-[var(--accent-light)] hover:bg-[var(--accent)] hover:text-white transition-all duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span class="font-mono">Email</span>
+          </a>
+          <a href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer" class="stagger-item inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full border-2 border-[var(--accent)] text-[var(--accent-light)] hover:bg-[var(--accent)] hover:text-white transition-all duration-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <span class="font-mono">GitHub</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-[var(--bg-primary)] border-t border-[var(--bg-tertiary)]">
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-[var(--text-secondary)] text-sm mb-4">This website was built with</p>
+        <div class="flex flex-wrap justify-center gap-3 mb-4">
+          <span class="px-3 py-1 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-light)] text-sm font-mono">Astro</span>
+          <span class="px-3 py-1 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-light)] text-sm font-mono">TypeScript</span>
+          <span class="px-3 py-1 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-light)] text-sm font-mono">Tailwind CSS</span>
+          <span class="px-3 py-1 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-light)] text-sm font-mono">GSAP</span>
+        </div>
+        <p class="text-[var(--text-muted)] text-xs font-mono">Statically generated with Astro & hosted on GitHub Pages</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero animations
+    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    heroTl.fromTo('.hero-tagline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
+      .fromTo('.hero-name', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, '-=0.4')
+      .fromTo('.hero-subtitle', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+      .fromTo('.hero-scroll', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.3');
+
+    // Scroll dot animation
+    gsap.to('.scroll-dot', { y: 12, duration: 1.2, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+
+    // Reveal animations on scroll
+    document.querySelectorAll('.reveal').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // Stagger animations for groups
+    document.querySelectorAll('.stagger-group').forEach((group) => {
+      const items = group.querySelectorAll('.stagger-item');
+      gsap.fromTo(items,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: group,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // Particles
+    const canvas = document.getElementById('particles') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d')!;
+
+    let mouse = { x: -1000, y: -1000, radius: 150 };
+    let particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] = [];
+
+    function resize() {
+      const hero = canvas.parentElement;
+      canvas.width = hero?.offsetWidth || window.innerWidth;
+      canvas.height = hero?.offsetHeight || window.innerHeight;
+      init();
+    }
+
+    function init() {
+      particles = [];
+      const count = Math.floor((canvas.width * canvas.height) / 8000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+          alpha: Math.random() * 0.6 + 0.2
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = '#0a0a0f';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < mouse.radius) {
+          const force = (mouse.radius - distance) / mouse.radius;
+          const angle = Math.atan2(dy, dx);
+          p.x -= Math.cos(angle) * force * 8;
+          p.y -= Math.sin(angle) * force * 8;
+        } else {
+          p.x += p.vx;
+          p.y += p.vy;
+        }
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(45, 90, 138, ${p.alpha})`;
+        ctx.fill();
+
+        for (let j = particles.indexOf(p) + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(45, 90, 138, ${0.15 * (1 - dist / 100)})`;
+            ctx.stroke();
+          }
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    resize();
+    animate();
+  </script>
+
+  <style>
+    .hero-glow {
+      background: radial-gradient(circle, rgba(30, 58, 95, 0.5) 0%, transparent 70%);
+      filter: blur(100px);
+    }
+    .name-glow {
+      color: white;
+      animation: glow 4s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(91, 163, 217, 0.2); }
+      50% { text-shadow: 0 0 30px rgba(91, 163, 217, 0.4), 0 0 50px rgba(91, 163, 217, 0.2); }
+    }
+    pre::-webkit-scrollbar { height: 6px; }
+    pre::-webkit-scrollbar-track { background: var(--bg-tertiary); border-radius: 3px; }
+    pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+  </style>
+</body>
+</html>
