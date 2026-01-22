@@ -1,14 +1,14 @@
 ---
 const tools = [
-  { name: 'Unity', category: 'engine', description: 'Primary game engine' },
-  { name: 'Unreal Engine', category: 'engine', description: 'AAA development' },
-  { name: 'CryEngine', category: 'engine', description: 'High-fidelity engine' },
-  { name: 'VS Code', category: 'editor', description: 'Code editor' },
-  { name: 'JetBrains Rider', category: 'editor', description: 'C# IDE' },
-  { name: 'JetBrains PyCharm', category: 'editor', description: 'Python IDE' },
-  { name: 'Blender', category: '3d', description: '3D modeling' },
-  { name: 'Substance Painter', category: '3d', description: 'PBR texturing' },
-  { name: 'Gaea', category: '3d', description: 'Terrain generation' },
+  { name: 'Unity', category: 'engine', description: 'Primary game engine', url: 'https://unity.com/' },
+  { name: 'Unreal Engine', category: 'engine', description: 'AAA development', url: 'https://www.unrealengine.com/' },
+  { name: 'CryEngine', category: 'engine', description: 'High-fidelity engine', url: 'https://www.cryengine.com/' },
+  { name: 'VS Code', category: 'editor', description: 'Code editor', url: 'https://code.visualstudio.com/' },
+  { name: 'JetBrains Rider', category: 'editor', description: 'C# IDE', url: 'https://www.jetbrains.com/rider/' },
+  { name: 'JetBrains PyCharm', category: 'editor', description: 'Python IDE', url: 'https://www.jetbrains.com/pycharm/' },
+  { name: 'Blender', category: '3d', description: '3D modeling', url: 'https://www.blender.org/' },
+  { name: 'Substance Painter', category: '3d', description: 'PBR texturing', url: 'https://www.adobe.com/products/substance3d-painter.html' },
+  { name: 'Gaea', category: '3d', description: 'Terrain generation', url: 'https://quadspinner.com/' },
 ];
 
 const categories = [
@@ -40,12 +40,12 @@ const categories = [
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {tools.filter(t => t.category === cat.key).map((tool) => (
-              <div class="group p-6 rounded-xl bg-[var(--bg-tertiary)] border border-white/5 hover:border-[var(--accent)]/50 transition-all duration-300 text-center">
+              <a href={tool.url} target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[var(--bg-tertiary)] border border-white/5 hover:border-[var(--accent)]/50 transition-all duration-300 text-center">
                 <h4 class="font-semibold mb-2 group-hover:text-[var(--accent-light)] transition-colors">
                   {tool.name}
                 </h4>
                 <p class="text-sm text-[var(--text-muted)]">{tool.description}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>

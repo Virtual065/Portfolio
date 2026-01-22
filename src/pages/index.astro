@@ -53,7 +53,7 @@ const whatIDo = [
 ];
 
 const history = [
-  { year: 'Nov 2025', title: 'Joined BuiltByUp', description: 'Became a Junior Software Engineer', link: 'https://builtbyup.com/', icon: '💼' },
+  { year: 'November 2025', title: 'Joined BuiltByUp', description: 'Became a Junior Software Engineer', link: 'https://builtbyup.com/', icon: '💼' },
   { year: 'July 2025', title: 'First Game Jam', description: 'Created Rot&Root with working multiplayer', link: 'https://vt065.itch.io/rotandroot', icon: '🏆' },
   { year: '2024', title: 'Joined Access Creative College', description: 'Started my journey in game development education', icon: '🎓' },
 ];
@@ -72,15 +72,15 @@ const languages = [
 ];
 
 const tools = [
-  { name: 'Unity', category: 'engine', description: 'Primary game engine' },
-  { name: 'Unreal Engine', category: 'engine', description: 'AAA development' },
-  { name: 'CryEngine', category: 'engine', description: 'High-fidelity engine' },
-  { name: 'VS Code', category: 'editor', description: 'Code editor' },
-  { name: 'JetBrains Rider', category: 'editor', description: 'C# IDE' },
-  { name: 'JetBrains PyCharm', category: 'editor', description: 'Python IDE' },
-  { name: 'Blender', category: '3d', description: '3D modeling' },
-  { name: 'Substance Painter', category: '3d', description: 'PBR texturing' },
-  { name: 'Gaea', category: '3d', description: 'Terrain generation' },
+  { name: 'Unity', category: 'engine', description: 'Primary game engine', url: 'https://unity.com/' },
+  { name: 'Unreal Engine', category: 'engine', description: 'AAA development', url: 'https://www.unrealengine.com/' },
+  { name: 'CryEngine', category: 'engine', description: 'High-fidelity engine', url: 'https://www.cryengine.com/' },
+  { name: 'VS Code', category: 'editor', description: 'Code editor', url: 'https://code.visualstudio.com/' },
+  { name: 'JetBrains Rider', category: 'editor', description: 'C# IDE', url: 'https://www.jetbrains.com/rider/' },
+  { name: 'JetBrains PyCharm', category: 'editor', description: 'Python IDE', url: 'https://www.jetbrains.com/pycharm/' },
+  { name: 'Blender', category: '3d', description: '3D modeling', url: 'https://www.blender.org/' },
+  { name: 'Substance Painter', category: '3d', description: 'PBR texturing', url: 'https://www.adobe.com/products/substance3d-painter.html' },
+  { name: 'Gaea', category: '3d', description: 'Terrain generation', url: 'https://quadspinner.com/' },
 ];
 
 const categories = [
@@ -388,10 +388,10 @@ const filteredProjects = computed(() =>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {tools.filter(t => t.category === cat.key).map((tool) => (
-                  <div class="group p-6 rounded-xl bg-[var(--bg-tertiary)] border border-white/5 hover:border-[var(--accent)]/50 transition-all duration-300 text-center">
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer" class="group p-6 rounded-xl bg-[var(--bg-tertiary)] border border-white/5 hover:border-[var(--accent)]/50 transition-all duration-300 text-center">
                     <h4 class="font-semibold mb-2 group-hover:text-[var(--accent-light)] transition-colors">{tool.name}</h4>
                     <p class="text-sm text-[var(--text-muted)]">{tool.description}</p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -500,9 +500,12 @@ const filteredProjects = computed(() =>
     // Particles
     const canvas = document.getElementById('particles') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
+    const heroSection = canvas.parentElement;
 
     let mouse = { x: -1000, y: -1000, radius: 150 };
     let particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] = [];
+    let animationId: number | null = null;
+    let isVisible = true;
 
     function resize() {
       const hero = canvas.parentElement;
@@ -568,7 +571,40 @@ const filteredProjects = computed(() =>
         }
       });
 
-      requestAnimationFrame(animate);
+      if (isVisible) {
+        animationId = requestAnimationFrame(animate);
+      }
+    }
+
+    function startAnimation() {
+      if (!animationId && isVisible) {
+        console.log('Particles: started');
+        animationId = requestAnimationFrame(animate);
+      }
+    }
+
+    function stopAnimation() {
+      if (animationId) {
+        console.log('Particles: paused');
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    }
+
+    // Intersection Observer to pause particles when not visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      });
+    }, { threshold: 0 });
+
+    if (heroSection) {
+      observer.observe(heroSection);
     }
 
     window.addEventListener('resize', resize);
@@ -578,7 +614,7 @@ const filteredProjects = computed(() =>
     });
 
     resize();
-    animate();
+    startAnimation();
   </script>
 
   <style>
