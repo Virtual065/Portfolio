@@ -1,0 +1,61 @@
+---
+const cards = [
+  {
+    title: "Game Development",
+    description: "Building interactive experiences with Unity and Unreal Engine. From gameplay mechanics to full game systems.",
+    icon: "🎮"
+  },
+  {
+    title: "Software Engineering",
+    description: "Developing robust applications and systems. Building scalable solutions with modern frameworks and best practices.",
+    icon: "⚙️"
+  },
+  {
+    title: "Programming",
+    description: "Writing clean, efficient code across multiple languages. Solving complex problems with elegant solutions.",
+    icon: "💻"
+  },
+  {
+    title: "3D Art & Design",
+    description: "Creating game-ready assets with Blender and Substance Painter. Modeling, texturing, and bringing worlds to life.",
+    icon: "🎨"
+  },
+  {
+    title: "Writing",
+    description: "Crafting engaging narratives, documentation, and content. Communicating complex ideas clearly and effectively.",
+    icon: "✍️"
+  },
+  {
+    title: "Level Design",
+    description: "Designing engaging game environments and player experiences. Creating layouts that guide and challenge players.",
+    icon: "🗺️"
+  }
+];
+---
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]" id="what-i-do">
+  <div class="w-full max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">
+        What I <span class="text-[var(--accent-light)]">Do</span>
+      </h2>
+      <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">
+        Combining technical expertise with creative vision to build engaging digital experiences
+      </p>
+    </div>
+
+    <div class="stagger-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {cards.map((card) => (
+        <div class="stagger-item group p-8 rounded-2xl bg-[var(--bg-tertiary)] border border-transparent hover:border-[var(--accent)] transition-all duration-300 text-center">
+          <span class="text-5xl mb-6 block">{card.icon}</span>
+          <h3 class="text-xl font-semibold mb-4 group-hover:text-[var(--accent-light)] transition-colors">
+            {card.title}
+          </h3>
+          <p class="text-[var(--text-secondary)] leading-relaxed">
+            {card.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

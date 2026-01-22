@@ -1,0 +1,67 @@
+---
+const milestones = [
+  {
+    year: "2024",
+    title: "Joined Access Creative College",
+    description: "Started my journey in game development and creative technologies.",
+    icon: "🎓"
+  },
+  {
+    year: "July 2025",
+    title: "First Game Jam - Rot&Root",
+    description: "Competed in my first game jam and created Rot&Root, my first completed game featuring working multiplayer functionality.",
+    icon: "🏆",
+    link: "https://vt065.itch.io/rotandroot"
+  },
+  {
+    year: "November 2025",
+    title: "Joined BuiltByUp",
+    description: "Became a Junior Software Engineer, taking my first step into the professional industry.",
+    icon: "💼",
+    link: "https://builtbyup.com/"
+  }
+];
+---
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20" id="history">
+  <div class="w-full max-w-3xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">
+        My <span class="text-[var(--accent-light)]">Journey</span>
+      </h2>
+      <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">
+        Key milestones along the way
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- Timeline line -->
+      <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[var(--accent)] md:-translate-x-px"></div>
+
+      <div class="space-y-12">
+        {milestones.map((milestone, index) => (
+          <div class={`reveal relative flex items-center gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+            <!-- Timeline dot -->
+            <div class="absolute left-8 md:left-1/2 w-4 h-4 bg-[var(--accent)] rounded-full -translate-x-1/2 border-4 border-[var(--bg-secondary)] z-10"></div>
+
+            <!-- Content card -->
+            <div class={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] p-6 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 ${index % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'}`}>
+              <div class={`flex items-center gap-3 mb-3 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                <span class="text-2xl">{milestone.icon}</span>
+                <span class="text-[var(--accent-light)] font-mono text-sm">{milestone.year}</span>
+              </div>
+              {milestone.link ? (
+                <a href={milestone.link} target="_blank" rel="noopener noreferrer" class="text-xl font-semibold mb-2 block hover:text-[var(--accent-light)] transition-colors">
+                  {milestone.title} ↗
+                </a>
+              ) : (
+                <h3 class="text-xl font-semibold mb-2">{milestone.title}</h3>
+              )}
+              <p class="text-[var(--text-secondary)] text-sm">{milestone.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

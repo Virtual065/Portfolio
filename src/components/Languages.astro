@@ -1,0 +1,57 @@
+---
+const languages = [
+  { name: 'C#', level: 'primary' },
+  { name: 'Python', level: 'primary' },
+  { name: 'C++', level: 'secondary' },
+  { name: 'GDScript', level: 'secondary' },
+  { name: 'JavaScript', level: 'secondary' },
+  { name: 'TypeScript', level: 'secondary' },
+  { name: 'PHP', level: 'secondary' },
+  { name: 'Vue', level: 'secondary' },
+  { name: 'HTML/CSS', level: 'secondary' },
+  { name: 'SQL', level: 'learning' },
+];
+---
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]" id="languages">
+  <div class="w-full max-w-3xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">
+        Languages I <span class="text-[var(--accent-light)]">Know</span>
+      </h2>
+      <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">
+        The programming languages in my toolkit
+      </p>
+    </div>
+
+    <div class="stagger-group flex flex-wrap justify-center gap-4 mb-12">
+      {languages.map((lang) => (
+        <div class={`stagger-item px-6 py-3 rounded-full font-mono text-sm border-2 transition-all duration-300 cursor-default
+          ${lang.level === 'primary'
+            ? 'bg-[var(--accent)] border-[var(--accent)] text-white'
+            : lang.level === 'secondary'
+            ? 'bg-transparent border-[var(--accent-light)] text-[var(--accent-light)]'
+            : 'bg-transparent border-[var(--text-muted)] text-[var(--text-muted)]'
+          }`}
+        >
+          {lang.name}
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal flex flex-wrap justify-center gap-8 text-sm">
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded-full bg-[var(--accent)]"></div>
+        <span class="text-[var(--text-secondary)]">Primary</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded-full border-2 border-[var(--accent-light)]"></div>
+        <span class="text-[var(--text-secondary)]">Proficient</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded-full border-2 border-[var(--text-muted)]"></div>
+        <span class="text-[var(--text-secondary)]">Learning</span>
+      </div>
+    </div>
+  </div>
+</section>

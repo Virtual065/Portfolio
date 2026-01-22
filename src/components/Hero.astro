@@ -1,0 +1,65 @@
+---
+interface Props {
+  name: string;
+  tagline?: string;
+}
+
+const { name, tagline = "Game Developer" } = Astro.props;
+---
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-primary)]"></div>
+  <div class="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full opacity-20 pointer-events-none"></div>
+
+  <div class="relative z-10 text-center w-full max-w-4xl mx-auto">
+    <p class="hero-tagline text-[var(--accent-light)] font-mono text-xs sm:text-sm tracking-widest uppercase mb-4">
+      {tagline}
+    </p>
+
+    <h1 class="hero-name text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+      <span class="hero-name-text">{name}</span>
+    </h1>
+
+    <p class="hero-subtitle text-[var(--text-secondary)] text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-16">
+      Creating immersive experiences through code and creativity
+    </p>
+
+    <div class="hero-scroll">
+      <div class="w-6 h-10 border-2 border-[var(--text-muted)] rounded-full flex justify-center mx-auto">
+        <div class="scroll-dot w-1.5 h-1.5 bg-[var(--accent-light)] rounded-full mt-2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.fromTo('.hero-tagline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
+    .fromTo('.hero-name-text', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, '-=0.4')
+    .fromTo('.hero-subtitle', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+    .fromTo('.hero-scroll', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.3');
+
+  gsap.to('.scroll-dot', { y: 12, duration: 1.2, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+</script>
+
+<style>
+  .hero-glow {
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    filter: blur(60px);
+  }
+  .hero-name-text {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-light) 50%, var(--text-primary) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
+</style>

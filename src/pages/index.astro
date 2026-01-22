@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import WhatIDo from '../components/WhatIDo.astro';
+import History from '../components/History.astro';
+import Languages from '../components/Languages.astro';
+import CodeShowcase from '../components/CodeShowcase.astro';
+import Software from '../components/Software.astro';
+import Contact from '../components/Contact.astro';
+
+// ========================================
+// CUSTOMIZE YOUR PORTFOLIO HERE
+// ========================================
+const config = {
+  name: "Thomas Yates",
+  tagline: "Game Developer & Junior Software Engineer",
+  email: "tomyates2008@gmail.com",
+  github: "Virtual065",
+};
+---
+
+<Layout title={`${config.name} | ${config.tagline}`}>
+  <Hero name={config.name} tagline={config.tagline} />
+  <WhatIDo />
+  <History />
+  <Languages />
+  <CodeShowcase />
+  <Software />
+  <Contact email={config.email} github={config.github} />
+</Layout>

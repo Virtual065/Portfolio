@@ -1,0 +1,55 @@
+---
+const tools = [
+  { name: 'Unity', category: 'engine', description: 'Primary game engine' },
+  { name: 'Unreal Engine', category: 'engine', description: 'AAA development' },
+  { name: 'CryEngine', category: 'engine', description: 'High-fidelity engine' },
+  { name: 'VS Code', category: 'editor', description: 'Code editor' },
+  { name: 'JetBrains Rider', category: 'editor', description: 'C# IDE' },
+  { name: 'JetBrains PyCharm', category: 'editor', description: 'Python IDE' },
+  { name: 'Blender', category: '3d', description: '3D modeling' },
+  { name: 'Substance Painter', category: '3d', description: 'PBR texturing' },
+  { name: 'Gaea', category: '3d', description: 'Terrain generation' },
+];
+
+const categories = [
+  { key: 'engine', label: 'Game Engines', icon: '🎮' },
+  { key: 'editor', label: 'Development', icon: '💻' },
+  { key: '3d', label: '3D & Art', icon: '🎨' },
+];
+---
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]" id="software">
+  <div class="w-full max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">
+        Software <span class="text-[var(--accent-light)]">Arsenal</span>
+      </h2>
+      <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">
+        The tools I use to bring ideas to life
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      {categories.map((cat) => (
+        <div class="reveal">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-2xl">{cat.icon}</span>
+            <h3 class="text-xl font-semibold">{cat.label}</h3>
+            <div class="flex-1 h-px bg-gradient-to-r from-[var(--accent)] to-transparent"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {tools.filter(t => t.category === cat.key).map((tool) => (
+              <div class="group p-6 rounded-xl bg-[var(--bg-secondary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 text-center">
+                <h4 class="font-semibold mb-2 group-hover:text-[var(--accent-light)] transition-colors">
+                  {tool.name}
+                </h4>
+                <p class="text-sm text-[var(--text-muted)]">{tool.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
