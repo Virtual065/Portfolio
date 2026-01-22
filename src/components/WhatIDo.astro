@@ -1,37 +1,67 @@
 ---
 const cards = [
   {
-    title: "Game Development",
-    description: "Building interactive experiences with Unity and Unreal Engine. From gameplay mechanics to full game systems.",
-    icon: "🎮"
+    title: 'Game Development',
+    description: 'Building interactive experiences with Unity and Unreal Engine',
+    icon: '🎮',
+    details: 'Game development has been a passion of mine since I was 12. I love the power that video games have to convey emotions, tell stories, and create unforgettable experiences for players. Working primarily with Unity and Unreal Engine, I develop gameplay mechanics, implement game systems, and bring creative visions to life. My experience includes multiplayer functionality, AI behavior, physics systems, and polished user interfaces.',
+    skills: ['Unity', 'Unreal Engine', 'C#', 'C++', 'Blueprints', 'Game Design']
   },
   {
-    title: "Software Engineering",
-    description: "Developing robust applications and systems. Building scalable solutions with modern frameworks and best practices.",
-    icon: "⚙️"
+    title: 'Software Engineering',
+    description: 'Developing robust applications and tools',
+    icon: '⚙️',
+    details: 'As a Junior Software Engineer at BuiltByUp, I build scalable web applications and tools. I focus on writing maintainable code, following best practices, and collaborating with teams to deliver quality software solutions.',
+    skills: ['Vue.js', 'TypeScript', 'PHP', 'REST APIs', 'Git']
   },
   {
-    title: "Programming",
-    description: "Writing clean, efficient code across multiple languages. Solving complex problems with elegant solutions.",
-    icon: "💻"
+    title: 'Programming',
+    description: 'Writing clean, efficient code in multiple languages',
+    icon: '💻',
+    details: 'I write clean, efficient, and well-documented code across multiple programming languages. From low-level C++ for performance-critical systems to high-level Python for scripting and automation, I choose the right tool for each job.',
+    skills: ['C#', 'C++', 'Python', 'JavaScript', 'GDScript']
   },
   {
-    title: "3D Art & Design",
-    description: "Creating game-ready assets with Blender and Substance Painter. Modeling, texturing, and bringing worlds to life.",
-    icon: "🎨"
+    title: '3D Art & Design',
+    description: 'Creating models, textures, and environments',
+    icon: '🎨',
+    details: 'For my personal game projects, I create my own 3D assets rather than relying on asset stores. This is a skill I\'m continuously developing and improving. Using Blender for modeling and UV mapping, and Substance Painter for PBR textures, I work to bring my visual concepts to life while learning more with each project.',
+    skills: ['Blender', 'Substance Painter', 'UV Mapping', 'PBR Texturing']
   },
   {
-    title: "Writing",
-    description: "Crafting engaging narratives, documentation, and content. Communicating complex ideas clearly and effectively.",
-    icon: "✍️"
+    title: 'Writing',
+    description: 'Crafting narratives and documentation',
+    icon: '✍️',
+    details: 'I craft compelling narratives for games and write clear technical documentation. Whether it\'s worldbuilding, dialogue, quest design, or API documentation, I communicate complex ideas effectively.',
+    skills: ['Narrative Design', 'Technical Writing', 'Documentation', 'Worldbuilding']
   },
   {
-    title: "Level Design",
-    description: "Designing engaging game environments and player experiences. Creating layouts that guide and challenge players.",
-    icon: "🗺️"
-  }
+    title: 'Level Design',
+    description: 'Designing engaging gameplay spaces',
+    icon: '🗺️',
+    details: 'I design levels that guide players through engaging experiences. Using tools like Gaea for terrain generation and engine-specific editors, I create spaces that balance challenge, exploration, and visual storytelling.',
+    skills: ['Level Editors', 'Gaea', 'Environmental Storytelling', 'Playtesting']
+  },
 ];
 ---
+
+<!-- Skill Modal -->
+<div id="skill-modal-2" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4">
+  <div class="modal-backdrop absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+  <div class="modal-content relative bg-[var(--bg-secondary)] rounded-2xl max-w-lg w-full p-8 border border-[var(--bg-tertiary)]">
+    <button id="modal-close-2" class="absolute top-4 right-4 text-[var(--text-muted)] hover:text-white transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="text-center mb-6">
+      <span id="modal-icon-2" class="text-6xl mb-4 block"></span>
+      <h3 id="modal-title-2" class="text-2xl font-bold"></h3>
+    </div>
+    <p id="modal-details-2" class="text-[var(--text-secondary)] leading-relaxed mb-6"></p>
+    <div id="modal-skills-2" class="flex flex-wrap gap-2 justify-center"></div>
+  </div>
+</div>
 
 <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]" id="what-i-do">
   <div class="w-full max-w-5xl mx-auto">
@@ -45,17 +75,76 @@ const cards = [
     </div>
 
     <div class="stagger-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      {cards.map((card) => (
-        <div class="stagger-item group p-8 rounded-2xl bg-[var(--bg-tertiary)] border border-transparent hover:border-[var(--accent)] transition-all duration-300 text-center">
+      {cards.map((card, index) => (
+        <button
+          class="skill-card-2 stagger-item group p-8 rounded-2xl bg-[var(--bg-tertiary)] border border-transparent hover:border-[var(--accent)] hover:scale-[1.02] transition-all duration-300 text-center cursor-pointer text-left"
+          data-index={index}
+        >
           <span class="text-5xl mb-6 block">{card.icon}</span>
-          <h3 class="text-xl font-semibold mb-4 group-hover:text-[var(--accent-light)] transition-colors">
-            {card.title}
-          </h3>
-          <p class="text-[var(--text-secondary)] leading-relaxed">
-            {card.description}
-          </p>
-        </div>
+          <h3 class="text-xl font-semibold mb-4 group-hover:text-[var(--accent-light)] transition-colors">{card.title} ↗</h3>
+          <p class="text-[var(--text-secondary)] leading-relaxed">{card.description}</p>
+        </button>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  #skill-modal-2 .modal-backdrop {
+    animation: fadeIn 0.2s ease;
+  }
+  #skill-modal-2 .modal-content {
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script is:inline define:vars={{ cards }}>
+  const modal = document.getElementById('skill-modal-2');
+  const modalClose = document.getElementById('modal-close-2');
+  const modalBackdrop = modal.querySelector('.modal-backdrop');
+  const modalIcon = document.getElementById('modal-icon-2');
+  const modalTitle = document.getElementById('modal-title-2');
+  const modalDetails = document.getElementById('modal-details-2');
+  const modalSkills = document.getElementById('modal-skills-2');
+  const skillCards = document.querySelectorAll('.skill-card-2');
+
+  function openModal(index) {
+    const skill = cards[index];
+    modalIcon.textContent = skill.icon;
+    modalTitle.textContent = skill.title;
+    modalDetails.textContent = skill.details;
+    modalSkills.innerHTML = skill.skills.map(s =>
+      `<span class="px-3 py-1 rounded-full bg-[var(--accent)] text-white text-sm">${s}</span>`
+    ).join('');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  skillCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const index = parseInt(card.dataset.index);
+      openModal(index);
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
