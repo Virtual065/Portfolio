@@ -16,7 +16,7 @@ const languages = [
 <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]" id="languages">
   <div class="w-full max-w-3xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">
+      <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">
         Languages I <span class="text-[var(--accent-light)]">Know</span>
       </h2>
       <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">
@@ -26,7 +26,7 @@ const languages = [
 
     <div class="stagger-group flex flex-wrap justify-center gap-4 mb-12">
       {languages.map((lang) => (
-        <div class={`stagger-item px-6 py-3 rounded-full font-mono text-sm border-2 transition-all duration-300 cursor-default
+        <div class={`stagger-item px-6 py-3 rounded-full font-mono text-base border-2 transition-all duration-300 cursor-default
           ${lang.level === 'primary'
             ? 'bg-[var(--accent)] border-[var(--accent)] text-white'
             : lang.level === 'secondary'

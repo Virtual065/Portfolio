@@ -241,7 +241,7 @@ const filteredProjects = computed(() =>
     <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]">
       <div class="w-full max-w-5xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">What I <span class="text-[var(--accent-light)]">Do</span></h2>
+          <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">What I <span class="text-[var(--accent-light)]">Do</span></h2>
           <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">Combining technical skills with creative vision</p>
         </div>
         <div class="stagger-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -263,7 +263,7 @@ const filteredProjects = computed(() =>
     <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-primary)]">
       <div class="w-full max-w-3xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">My <span class="text-[var(--accent-light)]">Journey</span></h2>
+          <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">My <span class="text-[var(--accent-light)]">Journey</span></h2>
           <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">Key milestones in my development career</p>
         </div>
         <div class="relative">
@@ -279,17 +279,17 @@ const filteredProjects = computed(() =>
                 <!-- Content card -->
                 <div class={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] p-6 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 ${i % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'}`}>
                   <div class={`flex items-center gap-3 mb-3 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                    <span class="text-2xl">{item.icon}</span>
-                    <span class="text-[var(--accent-light)] font-mono text-sm">{item.year}</span>
+                    <span class="text-3xl">{item.icon}</span>
+                    <span class="text-[var(--accent-light)] font-mono text-base">{item.year}</span>
                   </div>
                   {item.link ? (
-                    <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-xl font-semibold mb-2 block hover:text-[var(--accent-light)] transition-colors">
+                    <a href={item.link} target="_blank" rel="noopener noreferrer" class="text-2xl font-semibold mb-2 block hover:text-[var(--accent-light)] transition-colors">
                       {item.title} ↗
                     </a>
                   ) : (
-                    <h3 class="text-xl font-semibold mb-2">{item.title}</h3>
+                    <h3 class="text-2xl font-semibold mb-2">{item.title}</h3>
                   )}
-                  <p class="text-[var(--text-secondary)] text-sm">{item.description}</p>
+                  <p class="text-[var(--text-secondary)] text-base">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -302,12 +302,12 @@ const filteredProjects = computed(() =>
     <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]">
       <div class="w-full max-w-3xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Languages I <span class="text-[var(--accent-light)]">Know</span></h2>
+          <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">Languages I <span class="text-[var(--accent-light)]">Know</span></h2>
           <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">The programming languages in my toolkit</p>
         </div>
         <div class="stagger-group flex flex-wrap justify-center gap-4 mb-12">
           {languages.map((lang) => (
-            <div class={`stagger-item px-6 py-3 rounded-full font-mono text-sm border-2 transition-all duration-300 cursor-default
+            <div class={`stagger-item px-6 py-3 rounded-full font-mono text-base border-2 transition-all duration-300 cursor-default
               ${lang.level === 'primary'
                 ? 'bg-[var(--accent)] border-[var(--accent)] text-white'
                 : lang.level === 'secondary'
@@ -339,7 +339,7 @@ const filteredProjects = computed(() =>
     <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-primary)]">
       <div class="w-full max-w-5xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Code <span class="text-[var(--accent-light)]">Samples</span></h2>
+          <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">Code <span class="text-[var(--accent-light)]">Samples</span></h2>
           <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">A glimpse into how I write code</p>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -375,7 +375,7 @@ const filteredProjects = computed(() =>
     <section class="min-h-screen flex items-center justify-center px-6 py-20 bg-[var(--bg-secondary)]">
       <div class="w-full max-w-4xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Software <span class="text-[var(--accent-light)]">Arsenal</span></h2>
+          <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">Software <span class="text-[var(--accent-light)]">Arsenal</span></h2>
           <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">The tools I use to bring ideas to life</p>
         </div>
         <div class="space-y-12">
@@ -403,7 +403,7 @@ const filteredProjects = computed(() =>
     <!-- Contact -->
     <section class="px-6 py-24 bg-[var(--bg-primary)]">
       <div class="w-full max-w-2xl mx-auto text-center">
-        <h2 class="reveal text-3xl md:text-4xl font-bold mb-4">Let's <span class="text-[var(--accent-light)]">Connect</span></h2>
+        <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">Let's <span class="text-[var(--accent-light)]">Connect</span></h2>
         <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto mb-12">Interested in working together or just want to chat? Feel free to reach out.</p>
         <div class="stagger-group flex flex-col sm:flex-row justify-center gap-4">
           <a href={`mailto:${email}`} class="stagger-item inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full border-2 border-[var(--accent)] text-[var(--accent-light)] hover:bg-[var(--accent)] hover:text-white transition-all duration-300">
