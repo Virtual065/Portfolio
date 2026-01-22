@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import WhatIDo from '../components/WhatIDo.astro';
+---
+
+<Layout title="Background 4 - Vignette">
+  <div class="fixed inset-0 -z-10 bg-[#0a0a0f]"></div>
+  <div class="fixed inset-0 -z-10 vignette"></div>
+  <div class="fixed top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#1e3a5f]/15 rounded-full blur-[150px] -z-10"></div>
+  <div class="fixed bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#1e3a5f]/10 to-transparent -z-10"></div>
+
+  <div class="fixed top-4 left-4 z-50 bg-black/80 px-4 py-2 rounded-lg border border-white/20">
+    <span class="text-white font-mono text-sm">4/5 - Vignette + Ambient Glow</span>
+  </div>
+
+  <Hero name="Thomas Yates" tagline="Game Developer & Junior Software Engineer" />
+  <WhatIDo />
+</Layout>
+
+<style is:global>
+  .vignette {
+    background: radial-gradient(ellipse at center, transparent 0%, #0a0a0f 70%);
+  }
+</style>

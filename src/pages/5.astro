@@ -1,0 +1,100 @@
+---
+const name = "Thomas Yates";
+const tagline = "Game Developer & Junior Software Engineer";
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bold Name Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: white;
+      overflow-x: hidden;
+      background: #0a0a0f;
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-name {
+      position: absolute;
+      font-size: clamp(15rem, 30vw, 40rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.03);
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      letter-spacing: -0.05em;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .tagline {
+      color: #5ba3d9;
+      font-size: 0.875rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .name {
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-top: 2rem;
+      letter-spacing: 0.1em;
+    }
+    .line {
+      width: 60px;
+      height: 3px;
+      background: #5ba3d9;
+      margin: 2rem auto;
+    }
+    .label {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(0,0,0,0.8);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      z-index: 100;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="label">5/5 - Bold Typography</div>
+
+  <section class="hero">
+    <div class="bg-name">THOMAS</div>
+    <div class="content">
+      <p class="tagline">{tagline}</p>
+      <h1 class="name">Thomas<br>Yates</h1>
+      <div class="line"></div>
+      <p class="subtitle">Creating immersive experiences</p>
+    </div>
+  </section>
+</body>
+</html>
