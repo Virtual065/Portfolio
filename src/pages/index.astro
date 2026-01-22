@@ -301,7 +301,7 @@ const filteredProjects = computed(() =>
             {history.map((item, i) => (
               <div class={`reveal relative flex items-center gap-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                 <!-- Timeline dot -->
-                <div class="absolute left-8 md:left-1/2 w-4 h-4 bg-[var(--accent)] rounded-full -translate-x-1/2 border-4 border-[var(--bg-primary)] z-10"></div>
+                <div class="absolute left-8 md:left-1/2 w-6 h-6 bg-[var(--accent)] rounded-full -translate-x-1/2 border-4 border-[var(--bg-primary)] z-10"></div>
 
                 <!-- Content card -->
                 <div class={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] p-6 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 ${i % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'}`}>
@@ -450,7 +450,7 @@ const filteredProjects = computed(() =>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 bg-[var(--bg-primary)] border-t border-[var(--accent)]/30">
+    <footer class="py-12 px-6 bg-[var(--bg-primary)] border-t-2 border-[var(--accent)]/50">
       <div class="max-w-2xl mx-auto text-center">
         <p class="text-[var(--text-secondary)] text-sm mb-4">This website was built with</p>
         <div class="flex flex-wrap justify-center gap-3 mb-4">
