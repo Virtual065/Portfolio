@@ -42,6 +42,14 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
       </div>
     </div>
 
+    <!-- Low FPS Mode Toggle -->
+    <div id="lowfps-container" class="inline-flex items-center gap-3 px-4 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/30 w-auto" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999; padding-top: 6px; padding-bottom: 6px;">
+      <span class="text-white text-sm whitespace-nowrap">LowFPS</span>
+      <div id="lowfps-toggle" class="lowfps-toggle" title="Disables all animations">
+        <div class="toggle-thumb"></div>
+      </div>
+    </div>
+
     <slot />
     <script>
       import { gsap } from 'gsap';
@@ -49,60 +57,72 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
 
       gsap.registerPlugin(ScrollTrigger);
 
-      // Reveal animations on scroll
-      document.querySelectorAll('.reveal').forEach((el) => {
-        gsap.fromTo(el,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play none none none'
-            }
-          }
-        );
-      });
+      // Check if Low FPS mode is enabled
+      const isLowFPS = localStorage.getItem('lowfps-mode') === 'true';
 
-      // Clip reveal animations
-      document.querySelectorAll('.clip-reveal').forEach((el) => {
-        gsap.fromTo(el,
-          { clipPath: 'inset(100% 0 0 0)' },
-          {
-            clipPath: 'inset(0% 0 0 0)',
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play none none none'
+      if (isLowFPS) {
+        // Make all elements visible immediately without animation
+        document.querySelectorAll('.reveal, .clip-reveal, .stagger-item').forEach((el) => {
+          (el as HTMLElement).style.opacity = '1';
+          (el as HTMLElement).style.transform = 'none';
+          (el as HTMLElement).style.clipPath = 'none';
+        });
+      } else {
+        // Reveal animations on scroll
+        document.querySelectorAll('.reveal').forEach((el) => {
+          gsap.fromTo(el,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
             }
-          }
-        );
-      });
+          );
+        });
 
-      // Stagger animations for groups
-      document.querySelectorAll('.stagger-group').forEach((group) => {
-        const items = group.querySelectorAll('.stagger-item');
-        gsap.fromTo(items,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: group,
-              start: 'top 85%',
-              toggleActions: 'play none none none'
+        // Clip reveal animations
+        document.querySelectorAll('.clip-reveal').forEach((el) => {
+          gsap.fromTo(el,
+            { clipPath: 'inset(100% 0 0 0)' },
+            {
+              clipPath: 'inset(0% 0 0 0)',
+              duration: 1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
             }
-          }
-        );
-      });
+          );
+        });
+
+        // Stagger animations for groups
+        document.querySelectorAll('.stagger-group').forEach((group) => {
+          const items = group.querySelectorAll('.stagger-item');
+          gsap.fromTo(items,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: group,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+              }
+            }
+          );
+        });
+      }
     </script>
   </body>
 </html>
@@ -147,6 +167,36 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
   body.dyslexic-mode .dyslexic-toggle .toggle-thumb {
     transform: translateX(18px);
   }
+
+  /* Low FPS toggle */
+  .lowfps-toggle {
+    width: 44px;
+    height: 24px;
+    border-radius: 9999px;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    padding: 3px;
+  }
+  .lowfps-toggle .toggle-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: white;
+    transition: transform 0.3s ease;
+  }
+  body.lowfps-mode .lowfps-toggle {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  body.lowfps-mode .lowfps-toggle .toggle-thumb {
+    transform: translateX(18px);
+  }
+  /* Low FPS mode - disable all animations */
+  body.lowfps-mode * {
+    animation: none !important;
+    transition: none !important;
+  }
 </style>
 
 <script is:inline>
@@ -162,5 +212,20 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
     document.body.classList.toggle('dyslexic-mode');
     const isDyslexic = document.body.classList.contains('dyslexic-mode');
     localStorage.setItem('dyslexic-mode', isDyslexic);
+  });
+
+  // Low FPS mode toggle
+  const lowfpsToggle = document.getElementById('lowfps-toggle');
+
+  // Check for saved preference
+  if (localStorage.getItem('lowfps-mode') === 'true') {
+    document.body.classList.add('lowfps-mode');
+  }
+
+  lowfpsToggle.addEventListener('click', () => {
+    const isLowFPS = !document.body.classList.contains('lowfps-mode');
+    localStorage.setItem('lowfps-mode', isLowFPS);
+    // Reload page to apply changes to GSAP animations
+    window.location.reload();
   });
 </script>

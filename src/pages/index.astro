@@ -203,6 +203,14 @@ const filteredProjects = computed(() =>
     </div>
   </div>
 
+  <!-- Low FPS Mode Toggle -->
+  <div id="lowfps-container" class="inline-flex items-center gap-3 px-4 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/30 w-auto" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999; padding-top: 6px; padding-bottom: 6px;">
+    <span class="text-white text-sm whitespace-nowrap">LowFPS</span>
+    <div id="lowfps-toggle" class="lowfps-toggle" title="Disables all animations">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+
   <!-- Skill Modal -->
   <div id="skill-modal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4">
     <div class="modal-backdrop absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
@@ -449,53 +457,64 @@ const filteredProjects = computed(() =>
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero animations
-    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    heroTl.fromTo('.hero-tagline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
-      .fromTo('.hero-name', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, '-=0.4')
-      .fromTo('.hero-subtitle', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
-      .fromTo('.hero-scroll', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.3');
+    // Check if Low FPS mode is enabled
+    const isLowFPS = localStorage.getItem('lowfps-mode') === 'true';
 
-    // Scroll dot animation
-    gsap.to('.scroll-dot', { y: 12, duration: 1.2, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+    if (isLowFPS) {
+      // Make all elements visible immediately without animation
+      document.querySelectorAll('.hero-tagline, .hero-name, .hero-subtitle, .hero-scroll, .reveal, .stagger-item').forEach((el) => {
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'none';
+      });
+    } else {
+      // Hero animations
+      const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      heroTl.fromTo('.hero-tagline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
+        .fromTo('.hero-name', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, '-=0.4')
+        .fromTo('.hero-subtitle', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+        .fromTo('.hero-scroll', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.3');
 
-    // Reveal animations on scroll
-    document.querySelectorAll('.reveal').forEach((el) => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
+      // Scroll dot animation
+      gsap.to('.scroll-dot', { y: 12, duration: 1.2, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+
+      // Reveal animations on scroll
+      document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
-        }
-      );
-    });
+        );
+      });
 
-    // Stagger animations for groups
-    document.querySelectorAll('.stagger-group').forEach((group) => {
-      const items = group.querySelectorAll('.stagger-item');
-      gsap.fromTo(items,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: group,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
+      // Stagger animations for groups
+      document.querySelectorAll('.stagger-group').forEach((group) => {
+        const items = group.querySelectorAll('.stagger-item');
+        gsap.fromTo(items,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: group,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    }
 
     // Particles
     const canvas = document.getElementById('particles') as HTMLCanvasElement;
@@ -578,43 +597,85 @@ const filteredProjects = computed(() =>
 
     function startAnimation() {
       if (!animationId && isVisible) {
-        console.log('Particles: started');
         animationId = requestAnimationFrame(animate);
       }
     }
 
     function stopAnimation() {
       if (animationId) {
-        console.log('Particles: paused');
         cancelAnimationFrame(animationId);
         animationId = null;
       }
     }
 
-    // Intersection Observer to pause particles when not visible
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        isVisible = entry.isIntersecting;
-        if (isVisible) {
-          startAnimation();
-        } else {
-          stopAnimation();
-        }
-      });
-    }, { threshold: 0 });
+    // Check if Low FPS mode is enabled
+    const lowFPSEnabled = localStorage.getItem('lowfps-mode') === 'true';
 
-    if (heroSection) {
-      observer.observe(heroSection);
+    // Intersection Observer to pause particles when not visible (only if not in Low FPS mode)
+    if (!lowFPSEnabled) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            startAnimation();
+          } else {
+            stopAnimation();
+          }
+        });
+      }, { threshold: 0 });
+
+      if (heroSection) {
+        observer.observe(heroSection);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
     }
 
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    window.addEventListener('resize', () => {
+      resize();
+      // If in Low FPS mode, just redraw static particles on resize
+      if (lowFPSEnabled) {
+        draw();
+      }
     });
 
+    // Static draw function for Low FPS mode
+    function draw() {
+      ctx.fillStyle = '#0a0a0f';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(45, 90, 138, ${p.alpha})`;
+        ctx.fill();
+      });
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+          const dist = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(45, 90, 138, ${0.15 * (1 - dist / 100)})`;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
     resize();
-    startAnimation();
+
+    // Start particles based on Low FPS mode
+    if (lowFPSEnabled) {
+      draw();
+    } else {
+      startAnimation();
+    }
   </script>
 
   <style>
@@ -685,6 +746,39 @@ const filteredProjects = computed(() =>
     body.dyslexic-mode .dyslexic-toggle .toggle-thumb {
       transform: translateX(18px);
     }
+
+    /* Low FPS toggle */
+    .lowfps-toggle {
+      width: 44px;
+      height: 24px;
+      border-radius: 9999px;
+      border: 2px solid white;
+      background: transparent;
+      cursor: pointer;
+      padding: 3px;
+    }
+    .lowfps-toggle .toggle-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 9999px;
+      background: white;
+      transition: transform 0.3s ease;
+    }
+    body.lowfps-mode .lowfps-toggle {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    body.lowfps-mode .lowfps-toggle .toggle-thumb {
+      transform: translateX(18px);
+    }
+    /* Low FPS mode - disable all animations */
+    body.lowfps-mode * {
+      animation: none !important;
+      transition: none !important;
+    }
+    body.lowfps-mode .name-glow {
+      text-shadow: 0 0 20px rgba(91, 163, 217, 0.2);
+    }
   </style>
 
   <script is:inline define:vars={{ whatIDo }}>
@@ -700,6 +794,22 @@ const filteredProjects = computed(() =>
       document.body.classList.toggle('dyslexic-mode');
       const isDyslexic = document.body.classList.contains('dyslexic-mode');
       localStorage.setItem('dyslexic-mode', isDyslexic);
+    });
+
+    // Low FPS mode toggle
+    const lowfpsToggle = document.getElementById('lowfps-toggle');
+
+    // Check for saved preference
+    if (localStorage.getItem('lowfps-mode') === 'true') {
+      document.body.classList.add('lowfps-mode');
+      window.lowfpsEnabled = true;
+    }
+
+    lowfpsToggle.addEventListener('click', () => {
+      const isLowFPS = !document.body.classList.contains('lowfps-mode');
+      localStorage.setItem('lowfps-mode', isLowFPS);
+      // Reload page to apply changes to GSAP animations
+      window.location.reload();
     });
 
     // Skill modal
