@@ -19,9 +19,29 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      @font-face {
+        font-family: 'OpenDyslexic';
+        src: url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Regular.otf') format('opentype');
+        font-weight: normal;
+      }
+      @font-face {
+        font-family: 'OpenDyslexic';
+        src: url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Bold.otf') format('opentype');
+        font-weight: bold;
+      }
+    </style>
     <title>{title}</title>
   </head>
   <body>
+    <!-- Dyslexic Mode Toggle -->
+    <div id="dyslexic-container" class="inline-flex items-center gap-3 px-4 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/30 w-auto" style="position: fixed; top: 1rem; left: 1rem; z-index: 9999; padding-top: 6px; padding-bottom: 6px;">
+      <span class="text-white text-sm whitespace-nowrap">Dyslexic</span>
+      <div id="dyslexic-toggle" class="dyslexic-toggle" title="Toggle Dyslexic Font">
+        <div class="toggle-thumb"></div>
+      </div>
+    </div>
+
     <slot />
     <script>
       import { gsap } from 'gsap';
@@ -92,4 +112,55 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  /* Dyslexic toggle */
+  .dyslexic-toggle {
+    width: 44px;
+    height: 24px;
+    border-radius: 9999px;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    padding: 3px;
+  }
+  .dyslexic-toggle .toggle-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: white;
+    transition: transform 0.3s ease;
+  }
+  /* Dyslexic mode */
+  body.dyslexic-mode,
+  body.dyslexic-mode * {
+    font-family: 'OpenDyslexic', sans-serif !important;
+  }
+  body.dyslexic-mode code,
+  body.dyslexic-mode pre {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+  /* Toggle switch active state */
+  body.dyslexic-mode .dyslexic-toggle {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  body.dyslexic-mode .dyslexic-toggle .toggle-thumb {
+    transform: translateX(18px);
+  }
 </style>
+
+<script is:inline>
+  // Dyslexic mode toggle
+  const toggle = document.getElementById('dyslexic-toggle');
+
+  // Check for saved preference
+  if (localStorage.getItem('dyslexic-mode') === 'true') {
+    document.body.classList.add('dyslexic-mode');
+  }
+
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dyslexic-mode');
+    const isDyslexic = document.body.classList.contains('dyslexic-mode');
+    localStorage.setItem('dyslexic-mode', isDyslexic);
+  });
+</script>
