@@ -2,7 +2,7 @@
 
 Personal portfolio website showcasing my work as a Game Developer & Junior Software Engineer.
 
-**Live site:** [virtual065.github.io/Portfolio](https://virtual065.github.io/Portfolio)
+**Live site:** [tomyates.uk](https://tomyates.uk)
 
 ## Tech Stack
 
