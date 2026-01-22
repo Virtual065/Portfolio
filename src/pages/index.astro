@@ -177,7 +177,26 @@ const filteredProjects = computed(() =>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <title>{name} | {tagline}</title>
+
+  <!-- Open Graph / Discord Embed -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomyates.uk/" />
+  <meta property="og:title" content={`${name} | ${tagline}`} />
+  <meta property="og:description" content="Creating immersive experiences through code and creativity. Game Developer & Junior Software Engineer specializing in Unity, Unreal Engine, and web development." />
+  <meta property="og:image" content="https://tomyates.uk/og-image.png" />
+  <meta property="og:site_name" content="Thomas Yates Portfolio" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${name} | ${tagline}`} />
+  <meta name="twitter:description" content="Creating immersive experiences through code and creativity." />
+  <meta name="twitter:image" content="https://tomyates.uk/og-image.png" />
+
+  <!-- Theme Color (Discord sidebar) -->
+  <meta name="theme-color" content="#5ba3d9" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
