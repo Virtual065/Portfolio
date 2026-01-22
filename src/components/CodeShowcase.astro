@@ -118,7 +118,9 @@ const openProject = (project: Project) => {
             <span class="text-[var(--accent-light)] text-sm font-mono">{snippet.language}</span>
           </div>
           {snippet.type === 'code' ? (
-            <pre class="p-4 bg-[#0d0d12] rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-auto h-[450px]"><code class="font-mono text-sm leading-relaxed text-[var(--text-secondary)]">{snippet.code}</code></pre>
+            <div class="rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-hidden">
+              <pre class="p-4 bg-[#0d0d12] overflow-auto h-[450px]"><code class="font-mono text-sm leading-relaxed text-[var(--text-secondary)]">{snippet.code}</code></pre>
+            </div>
           ) : (
             <div class="bg-[#0d0d12] rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-hidden h-[450px]">
               <img src={blueprintImg.src} alt="Unreal Blueprint" class="w-full h-full object-cover object-center" />
@@ -131,7 +133,8 @@ const openProject = (project: Project) => {
 </section>
 
 <style>
-  pre::-webkit-scrollbar { height: 6px; }
+  pre::-webkit-scrollbar { height: 6px; width: 6px; }
   pre::-webkit-scrollbar-track { background: var(--bg-tertiary); border-radius: 3px; }
   pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+  pre::-webkit-scrollbar-corner { background: var(--bg-tertiary); }
 </style>

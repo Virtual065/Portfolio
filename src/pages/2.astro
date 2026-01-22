@@ -300,7 +300,9 @@ const filteredProjects = computed(() =>
                 <span class="text-[var(--accent-light)] text-sm font-mono">{snippet.language}</span>
               </div>
               {snippet.type === 'code' ? (
-                <pre class="p-4 bg-[#0d0d12]/90 backdrop-blur-sm rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-auto h-[450px]"><code class="font-mono text-sm leading-relaxed text-[var(--text-secondary)]">{snippet.code}</code></pre>
+                <div class="rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-hidden">
+                  <pre class="p-4 bg-[#0d0d12]/90 backdrop-blur-sm overflow-auto h-[450px]"><code class="font-mono text-sm leading-relaxed text-[var(--text-secondary)]">{snippet.code}</code></pre>
+                </div>
               ) : (
                 <div class="bg-[#0d0d12]/90 backdrop-blur-sm rounded-b-xl border border-t-0 border-[var(--bg-tertiary)] group-hover:border-[var(--accent)] transition-colors overflow-hidden h-[450px]">
                   <img src={blueprintImg.src} alt="Unreal Blueprint" class="w-full h-full object-cover object-center" />
@@ -329,7 +331,7 @@ const filteredProjects = computed(() =>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {tools.filter(t => t.category === cat.key).map((tool) => (
-                  <div class="group p-6 rounded-xl bg-[var(--bg-secondary)]/70 backdrop-blur-sm border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-all duration-300 text-center">
+                  <div class="group p-6 rounded-xl bg-[var(--bg-tertiary)] border border-white/5 hover:border-[var(--accent)]/50 transition-all duration-300 text-center">
                     <h4 class="font-semibold mb-2 group-hover:text-[var(--accent-light)] transition-colors">{tool.name}</h4>
                     <p class="text-sm text-[var(--text-muted)]">{tool.description}</p>
                   </div>
@@ -529,9 +531,10 @@ const filteredProjects = computed(() =>
       0%, 100% { text-shadow: 0 0 20px rgba(91, 163, 217, 0.2); }
       50% { text-shadow: 0 0 30px rgba(91, 163, 217, 0.4), 0 0 50px rgba(91, 163, 217, 0.2); }
     }
-    pre::-webkit-scrollbar { height: 6px; }
+    pre::-webkit-scrollbar { height: 6px; width: 6px; }
     pre::-webkit-scrollbar-track { background: var(--bg-tertiary); border-radius: 3px; }
     pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    pre::-webkit-scrollbar-corner { background: var(--bg-tertiary); }
 
     /* Dyslexic toggle */
     .dyslexic-toggle {
