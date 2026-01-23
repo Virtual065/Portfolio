@@ -1,0 +1,314 @@
+---
+const projects = [
+  {
+    title: 'Rot&Root',
+    description: 'A physics-based zombie farming tower defense game created during a week-long game jam. Features full Steam multiplayer integration, unique physics-driven gameplay mechanics, and cooperative survival. Defend your farm against waves of the undead.',
+    tags: ['Unity', 'C#', 'Multiplayer', 'Steam'],
+    link: 'https://vt065.itch.io/rotandroot',
+    icon: '🌱'
+  },
+  {
+    title: 'SBG Shropshire',
+    description: 'Full website development for SBG Shropshire, a Brazilian Jiu-Jitsu and martial arts gym. Built a modern, responsive site with class schedules, membership information, instructor profiles, and an integrated contact system.',
+    tags: ['Web Development', 'PHP', 'Vue.js'],
+    link: 'https://sbgshropshire.com',
+    icon: '🥋'
+  },
+  {
+    title: 'Portfolio Website',
+    description: 'This interactive portfolio showcasing my work and skills. Features particle animations, smooth scroll effects, responsive design, and a custom conveyor-style project showcase. Built with modern web technologies for optimal performance.',
+    tags: ['Astro', 'TypeScript', 'Tailwind', 'GSAP'],
+    link: 'https://github.com/Virtual065/Portfolio',
+    icon: '🌐'
+  },
+  {
+    title: 'Gymtribe',
+    description: 'A comprehensive gym management platform currently in active development. Features member management, class scheduling, payment processing, and analytics dashboards. Building a scalable solution for fitness businesses of all sizes.',
+    tags: ['Vue.js', 'TypeScript', 'PHP', 'WIP'],
+    icon: '🏋️'
+  },
+  {
+    title: 'SBG Crewe',
+    description: 'Website development for SBG Crewe martial arts gym. Created a clean, professional online presence with training information, class timetables, and easy-to-use enquiry forms. Optimized for mobile users and local SEO.',
+    tags: ['Web Development', 'PHP', 'Vue.js'],
+    link: 'https://sbgcrewe.com',
+    icon: '🥊'
+  },
+];
+---
+
+<section class="min-h-screen flex flex-col justify-center py-20 bg-[var(--bg-secondary)] overflow-hidden" id="projects">
+  <div class="text-center mb-12 px-6">
+    <h2 class="reveal text-4xl md:text-5xl font-bold mb-4">Projects I've <span class="text-[var(--accent-light)]">Worked On</span></h2>
+    <p class="reveal text-[var(--text-secondary)] text-base max-w-xl mx-auto">A selection of my work</p>
+  </div>
+
+  <div class="relative" id="projects-wrapper">
+    <!-- Left Arrow (PC) -->
+    <button id="projects-prev" class="hidden lg:flex absolute left-[calc(50%-820px)] top-1/2 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center rounded-full bg-[var(--bg-tertiary)] border border-[var(--accent)]/30 hover:border-[var(--accent)] hover:bg-[var(--accent)]/20 transition-all duration-300">
+      <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Right Arrow (PC) -->
+    <button id="projects-next" class="hidden lg:flex absolute right-[calc(50%-820px)] top-1/2 -translate-y-1/2 z-10 w-12 h-12 items-center justify-center rounded-full bg-[var(--bg-tertiary)] border border-[var(--accent)]/30 hover:border-[var(--accent)] hover:bg-[var(--accent)]/20 transition-all duration-300">
+      <svg class="w-6 h-6 text-[var(--accent-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <div id="projects-conveyor" class="flex gap-8 items-center" style="width: max-content; touch-action: pan-y pinch-zoom;">
+      {[...projects, ...projects, ...projects].map((project, i) => (
+        <div class={`project-card flex-shrink-0 w-[300px] md:w-[500px] h-[420px] md:h-[550px] p-6 md:p-10 rounded-2xl bg-[var(--bg-tertiary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-colors duration-300 flex flex-col`} data-index={i % projects.length}>
+          <span class="text-4xl md:text-6xl mb-4 md:mb-6 block">{project.icon}</span>
+          <h3 class="text-xl md:text-3xl font-semibold mb-2 md:mb-4">{project.title}</h3>
+          <p class="text-[var(--text-secondary)] text-sm md:text-lg mb-4 md:mb-6 flex-grow">{project.description}</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            {project.tags.map((tag) => (
+              <span class="px-3 py-1.5 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-light)] text-sm font-mono">{tag}</span>
+            ))}
+          </div>
+          {project.link ? (
+            <a href={project.link} target="_blank" rel="noopener noreferrer" class="text-[var(--accent-light)] hover:text-[var(--accent)] text-base font-mono transition-colors">
+              View Project ↗
+            </a>
+          ) : (
+            <span class="text-[var(--text-muted)] text-base font-mono">In Development</span>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile swipe hint -->
+    <div class="lg:hidden flex items-center justify-center gap-2 mt-8 text-[var(--text-muted)]">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="text-sm">Swipe to explore</span>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const isLowFPS = localStorage.getItem('lowfps-mode') === 'true';
+  const numOriginalProjects = 5;
+
+  if (!isLowFPS) {
+    // Projects infinite conveyor animation
+    const projectCards = document.querySelectorAll('.project-card') as NodeListOf<HTMLElement>;
+    const conveyor = document.getElementById('projects-conveyor');
+    const prevBtn = document.getElementById('projects-prev');
+    const nextBtn = document.getElementById('projects-next');
+    const wrapper = document.getElementById('projects-wrapper');
+
+    if (conveyor && projectCards.length > 0) {
+      let currentIndex = numOriginalProjects;
+      const isMobile = window.innerWidth < 768;
+      const cardOnlyWidth = isMobile ? 300 : 500;
+      const gap = 32;
+      const cardWidth = cardOnlyWidth + gap;
+      let autoScrollInterval: ReturnType<typeof setInterval> | null = null;
+      let resumeTimeout: ReturnType<typeof setTimeout> | null = null;
+      let isAnimating = false;
+
+      function updateCardStyles(animate = true) {
+        projectCards.forEach((card, i) => {
+          const distanceFromCenter = Math.abs(i - currentIndex);
+          const isCenter = distanceFromCenter === 0;
+          const isAdjacent = distanceFromCenter === 1;
+
+          const styles = {
+            opacity: isCenter ? 1 : isAdjacent ? 0.4 : 0,
+            scale: isCenter ? 1 : isAdjacent ? 0.9 : 0.8
+          };
+
+          if (animate) {
+            gsap.to(card, { ...styles, duration: 0.5, ease: 'power2.out' });
+          } else {
+            gsap.set(card, styles);
+          }
+        });
+      }
+
+      function goToIndex(newIndex: number, animate = true) {
+        if (isAnimating) return;
+
+        const centerOffset = (window.innerWidth / 2) - (cardOnlyWidth / 2);
+
+        let needsReset = false;
+        let resetIndex = newIndex;
+
+        if (newIndex >= numOriginalProjects * 2) {
+          needsReset = true;
+          resetIndex = newIndex - numOriginalProjects;
+        } else if (newIndex < numOriginalProjects) {
+          needsReset = true;
+          resetIndex = newIndex + numOriginalProjects;
+        }
+
+        currentIndex = newIndex;
+        isAnimating = true;
+
+        gsap.to(conveyor, {
+          x: -currentIndex * cardWidth + centerOffset,
+          duration: 0.6,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            if (needsReset) {
+              currentIndex = resetIndex;
+              gsap.set(conveyor, { x: -currentIndex * cardWidth + centerOffset });
+              updateCardStyles(false);
+            }
+            isAnimating = false;
+          }
+        });
+
+        updateCardStyles(true);
+      }
+
+      function nextCard() {
+        if (isAnimating) return;
+        goToIndex(currentIndex + 1);
+      }
+
+      function prevCard() {
+        if (isAnimating) return;
+        goToIndex(currentIndex - 1);
+      }
+
+      function pauseAutoScroll() {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval);
+          autoScrollInterval = null;
+        }
+        if (resumeTimeout) {
+          clearTimeout(resumeTimeout);
+        }
+        resumeTimeout = setTimeout(() => {
+          startAutoScroll();
+        }, 10000);
+      }
+
+      function startAutoScroll() {
+        if (autoScrollInterval) return;
+        autoScrollInterval = setInterval(() => {
+          if (!isAnimating) nextCard();
+        }, 8000);
+      }
+
+      prevBtn?.addEventListener('click', () => {
+        pauseAutoScroll();
+        goToIndex(currentIndex - 1);
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        pauseAutoScroll();
+        goToIndex(currentIndex + 1);
+      });
+
+      // Touch/drag support (mobile)
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let isHorizontalSwipe = false;
+
+      wrapper?.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        isHorizontalSwipe = false;
+      }, { passive: true });
+
+      wrapper?.addEventListener('touchmove', (e) => {
+        const diffX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+        const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+
+        if (diffX > diffY && diffX > 10) {
+          isHorizontalSwipe = true;
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      wrapper?.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+
+        if (isHorizontalSwipe && Math.abs(diff) > 50) {
+          pauseAutoScroll();
+          if (diff > 0) {
+            goToIndex(currentIndex + 1);
+          } else {
+            goToIndex(currentIndex - 1);
+          }
+        }
+      }, { passive: true });
+
+      // Initial position
+      const initialOffset = (window.innerWidth / 2) - (cardOnlyWidth / 2);
+      gsap.set(conveyor, { x: -currentIndex * cardWidth + initialOffset });
+      updateCardStyles(false);
+
+      // Start cycling when section is in view
+      ScrollTrigger.create({
+        trigger: '#projects-conveyor',
+        start: 'top 80%',
+        onEnter: () => {
+          startAutoScroll();
+        },
+        once: true
+      });
+    }
+  } else {
+    // Low FPS mode - snap navigation
+    const projectCards = document.querySelectorAll('.project-card') as NodeListOf<HTMLElement>;
+    const conveyor = document.getElementById('projects-conveyor') as HTMLElement;
+    const prevBtn = document.getElementById('projects-prev');
+    const nextBtn = document.getElementById('projects-next');
+    const wrapper = document.getElementById('projects-wrapper');
+    const isMobile = window.innerWidth < 768;
+    const cardOnlyWidth = isMobile ? 300 : 500;
+    const cardWidth = cardOnlyWidth + 32;
+    let currentIndex = numOriginalProjects;
+
+    function updateConveyor() {
+      if (currentIndex >= numOriginalProjects * 2) {
+        currentIndex = numOriginalProjects;
+      } else if (currentIndex < numOriginalProjects) {
+        currentIndex = numOriginalProjects * 2 - 1;
+      }
+
+      const centerOffset = (window.innerWidth / 2) - (cardOnlyWidth / 2);
+      conveyor.style.transform = `translateX(${-currentIndex * cardWidth + centerOffset}px)`;
+
+      projectCards.forEach((card, i) => {
+        const distanceFromCenter = Math.abs(i - currentIndex);
+        card.style.opacity = distanceFromCenter === 0 ? '1' : distanceFromCenter === 1 ? '0.4' : '0';
+        card.style.transform = `scale(${distanceFromCenter === 0 ? 1 : distanceFromCenter === 1 ? 0.9 : 0.8})`;
+      });
+    }
+
+    updateConveyor();
+
+    prevBtn?.addEventListener('click', () => { currentIndex--; updateConveyor(); });
+    nextBtn?.addEventListener('click', () => { currentIndex++; updateConveyor(); });
+
+    let touchStartX = 0;
+    wrapper?.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    wrapper?.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) { currentIndex++; } else { currentIndex--; }
+        updateConveyor();
+      }
+    }, { passive: true });
+
+    setInterval(() => { currentIndex++; updateConveyor(); }, 8000);
+  }
+</script>
