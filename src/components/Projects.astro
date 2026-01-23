@@ -61,12 +61,12 @@ const projects = [
 
     <div id="projects-conveyor" class="flex gap-8 items-center" style="width: max-content; touch-action: pan-y pinch-zoom;">
       {[...projects, ...projects, ...projects].map((project, i) => (
-        <div class={`project-card flex-shrink-0 w-[300px] md:w-[500px] h-[420px] md:h-[550px] p-6 md:p-10 rounded-2xl bg-[var(--bg-tertiary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-colors duration-300 flex flex-col`} data-index={i % projects.length}>
+        <div class={`project-card relative flex-shrink-0 w-[300px] md:w-[500px] h-[420px] md:h-[550px] p-6 md:p-10 rounded-2xl bg-[var(--bg-tertiary)] border border-[var(--bg-tertiary)] hover:border-[var(--accent)] transition-colors duration-300`} data-index={i % projects.length}>
           <span class="text-4xl md:text-6xl mb-4 md:mb-6 block">{project.icon}</span>
           <h3 class="text-xl md:text-3xl font-semibold mb-2 md:mb-4">{project.title}</h3>
           <p class="text-[var(--text-secondary)] text-sm md:text-lg">{project.description}</p>
-          <div class="mt-auto pt-4">
-            <div class="flex flex-wrap gap-2 mb-6">
+          <div class="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10">
+            <div class="flex flex-wrap gap-2 mb-4">
               {project.tags.map((tag) => (
                 <span class="px-3 py-1.5 rounded-full bg-[var(--bg-secondary)] text-[var(--accent-light)] text-sm font-mono">{tag}</span>
               ))}
