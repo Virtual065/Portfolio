@@ -25,6 +25,7 @@ const projects = [
     title: 'Gymtribe',
     description: 'A comprehensive gym management platform currently in active development. Features member management, class scheduling, payment processing, and analytics dashboards. Building a scalable solution for fitness businesses of all sizes.',
     tags: ['Vue.js', 'TypeScript', 'PHP', 'WIP'],
+    link: 'https://gymtribe.co.uk',
     icon: '🏋️'
   },
   {
@@ -113,7 +114,8 @@ const projects = [
     if (conveyor && projectCards.length > 0) {
       let currentIndex = numOriginalProjects;
       const isMobile = window.innerWidth < 768;
-      const cardOnlyWidth = isMobile ? 300 : 500;
+      const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
+      const cardOnlyWidth = isMobile ? (isDyslexicMode ? 350 : 300) : (isDyslexicMode ? 580 : 500);
       const gap = 32;
       const cardWidth = cardOnlyWidth + gap;
       let autoScrollInterval: ReturnType<typeof setInterval> | null = null;
@@ -273,7 +275,8 @@ const projects = [
     const nextBtn = document.getElementById('projects-next');
     const wrapper = document.getElementById('projects-wrapper');
     const isMobile = window.innerWidth < 768;
-    const cardOnlyWidth = isMobile ? 300 : 500;
+    const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
+    const cardOnlyWidth = isMobile ? (isDyslexicMode ? 350 : 300) : (isDyslexicMode ? 580 : 500);
     const cardWidth = cardOnlyWidth + 32;
     let currentIndex = numOriginalProjects;
 

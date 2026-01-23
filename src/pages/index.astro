@@ -84,6 +84,7 @@ const projects = [
     title: 'Gymtribe',
     description: 'A comprehensive gym management platform currently in active development. Features member management, class scheduling, payment processing, and analytics dashboards. Building a scalable solution for fitness businesses of all sizes.',
     tags: ['Vue.js', 'TypeScript', 'PHP', 'WIP'],
+    link: 'https://gymtribe.co.uk',
     icon: '🏋️'
   },
   {
@@ -639,7 +640,8 @@ const filteredProjects = computed(() =>
       if (conveyor && projectCards.length > 0) {
         let currentIndex = numOriginalProjects; // Start at first card of middle set
         const isMobile = window.innerWidth < 768;
-        const cardOnlyWidth = isMobile ? 300 : 500;
+        const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
+        const cardOnlyWidth = isMobile ? (isDyslexicMode ? 350 : 300) : (isDyslexicMode ? 580 : 500);
         const gap = 32; // gap-8 (32px)
         const cardWidth = cardOnlyWidth + gap; // Total step size
         let autoScrollInterval: ReturnType<typeof setInterval> | null = null;
@@ -805,7 +807,8 @@ const filteredProjects = computed(() =>
       const nextBtn = document.getElementById('projects-next');
       const wrapper = document.getElementById('projects-wrapper');
       const isMobile = window.innerWidth < 768;
-      const cardOnlyWidth = isMobile ? 300 : 500;
+      const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
+      const cardOnlyWidth = isMobile ? (isDyslexicMode ? 350 : 300) : (isDyslexicMode ? 580 : 500);
       const cardWidth = cardOnlyWidth + 32;
       const numOriginalProjects = 5;
       let currentIndex = numOriginalProjects;
@@ -1113,6 +1116,16 @@ const filteredProjects = computed(() =>
     body.lowfps-mode .name-glow {
       text-shadow: 0 0 20px rgba(91, 163, 217, 0.2);
     }
+
+    /* Dyslexic mode - wider project cards */
+    body.dyslexic-mode .project-card {
+      width: 350px;
+    }
+    @media (min-width: 768px) {
+      body.dyslexic-mode .project-card {
+        width: 580px;
+      }
+    }
   </style>
 
   <script is:inline define:vars={{ whatIDo }}>
@@ -1125,9 +1138,10 @@ const filteredProjects = computed(() =>
     }
 
     toggle.addEventListener('click', () => {
-      document.body.classList.toggle('dyslexic-mode');
-      const isDyslexic = document.body.classList.contains('dyslexic-mode');
+      const isDyslexic = !document.body.classList.contains('dyslexic-mode');
       localStorage.setItem('dyslexic-mode', isDyslexic);
+      // Reload page to apply changes to project card widths
+      window.location.reload();
     });
 
     // Low FPS mode toggle

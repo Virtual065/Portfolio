@@ -209,9 +209,10 @@ const { title, description = "Game Developer Portfolio" } = Astro.props;
   }
 
   toggle.addEventListener('click', () => {
-    document.body.classList.toggle('dyslexic-mode');
-    const isDyslexic = document.body.classList.contains('dyslexic-mode');
+    const isDyslexic = !document.body.classList.contains('dyslexic-mode');
     localStorage.setItem('dyslexic-mode', isDyslexic);
+    // Reload page to apply changes to project card widths
+    window.location.reload();
   });
 
   // Low FPS mode toggle

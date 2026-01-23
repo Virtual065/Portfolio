@@ -59,3 +59,23 @@ body {
   transform: translateY(0);
   transition: all 0.75s cubic-bezier(0.65, 0.05, 0, 1);
 }
+
+/* ========================================
+   DYSLEXIC MODE - Wider project cards
+   ======================================== */
+body.dyslexic-mode .project-card {
+  width: 350px;
+}
+@media (min-width: 768px) {
+  body.dyslexic-mode .project-card {
+    width: 580px;
+  }
+}
+
+/* Dyslexic mode - move arrows further apart */
+body.dyslexic-mode #projects-prev {
+  left: calc(50% - 950px);
+}
+body.dyslexic-mode #projects-next {
+  right: calc(50% - 950px);
+}
