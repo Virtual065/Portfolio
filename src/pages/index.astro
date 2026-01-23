@@ -641,7 +641,7 @@ const filteredProjects = computed(() =>
         let currentIndex = numOriginalProjects; // Start at first card of middle set
         const isMobile = window.innerWidth < 768;
         const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
-        const cardOnlyWidth = isMobile ? 300 : (isDyslexicMode ? 580 : 500);
+        const cardOnlyWidth = isMobile ? (isDyslexicMode ? 320 : 300) : (isDyslexicMode ? 580 : 500);
         const gap = 32; // gap-8 (32px)
         const cardWidth = cardOnlyWidth + gap; // Total step size
         let autoScrollInterval: ReturnType<typeof setInterval> | null = null;
@@ -808,7 +808,7 @@ const filteredProjects = computed(() =>
       const wrapper = document.getElementById('projects-wrapper');
       const isMobile = window.innerWidth < 768;
       const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
-      const cardOnlyWidth = isMobile ? 300 : (isDyslexicMode ? 580 : 500);
+      const cardOnlyWidth = isMobile ? (isDyslexicMode ? 320 : 300) : (isDyslexicMode ? 580 : 500);
       const cardWidth = cardOnlyWidth + 32;
       const numOriginalProjects = 5;
       let currentIndex = numOriginalProjects;

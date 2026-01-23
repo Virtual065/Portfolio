@@ -64,7 +64,7 @@ body {
    DYSLEXIC MODE - Wider project cards
    ======================================== */
 body.dyslexic-mode .project-card {
-  width: 300px !important;
+  width: 320px !important;
   height: 480px !important;
 }
 @media (min-width: 768px) {
