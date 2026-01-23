@@ -115,7 +115,7 @@ const projects = [
       let currentIndex = numOriginalProjects;
       const isMobile = window.innerWidth < 768;
       const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
-      const cardOnlyWidth = isMobile ? (isDyslexicMode ? 350 : 300) : (isDyslexicMode ? 580 : 500);
+      const cardOnlyWidth = isMobile ? 300 : (isDyslexicMode ? 580 : 500);
       const gap = 32;
       const cardWidth = cardOnlyWidth + gap;
       let autoScrollInterval: ReturnType<typeof setInterval> | null = null;
@@ -276,7 +276,7 @@ const projects = [
     const wrapper = document.getElementById('projects-wrapper');
     const isMobile = window.innerWidth < 768;
     const isDyslexicMode = document.body.classList.contains('dyslexic-mode');
-    const cardOnlyWidth = isMobile ? (isDyslexicMode ? 350 : 300) : (isDyslexicMode ? 580 : 500);
+    const cardOnlyWidth = isMobile ? 300 : (isDyslexicMode ? 580 : 500);
     const cardWidth = cardOnlyWidth + 32;
     let currentIndex = numOriginalProjects;
 
